@@ -29,7 +29,7 @@
 #define    kInAppBrowserToolbarBarPositionBottom @"bottom"
 #define    kInAppBrowserToolbarBarPositionTop @"top"
 
-#define    TOOLBAR_HEIGHT 44.0
+#define    TOOLBAR_HEIGHT 34.0 //44.0
 #define    LOCATIONBAR_HEIGHT 21.0
 #define    FOOTER_HEIGHT ((TOOLBAR_HEIGHT) + (LOCATIONBAR_HEIGHT))
 
@@ -70,11 +70,11 @@
 
 - (BOOL) isSystemUrl:(NSURL*)url
 {
-	if ([[url host] isEqualToString:@"itunes.apple.com"]) {
-		return YES;
-	}
+    if ([[url host] isEqualToString:@"itunes.apple.com"]) {
+        return YES;
+    }
 
-	return NO;
+    return NO;
 }
 
 - (void)open:(CDVInvokedUrlCommand*)command
@@ -150,9 +150,7 @@
 
     [self.inAppBrowserViewController showLocationBar:browserOptions.location];
     [self.inAppBrowserViewController showToolBar:browserOptions.toolbar :browserOptions.toolbarposition];
-    if (browserOptions.closebuttoncaption != nil) {
-        [self.inAppBrowserViewController setCloseButtonTitle:browserOptions.closebuttoncaption];
-    }
+
     // Set Presentation Style
     UIModalPresentationStyle presentationStyle = UIModalPresentationFullScreen; // default
     if (browserOptions.presentationstyle != nil) {
@@ -471,8 +469,12 @@
 
 - (void)createViews
 {
-    // We create the views in code for primarily for ease of upgrades and not requiring an external .xib to be included
+    NSDictionary *enabledBarButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:kFontAwesomeFamilyName size:20] , NSForegroundColorAttributeName: [UIColor whiteColor]};
+    NSDictionary *disabledBarButtonAppearanceDict = @{NSFontAttributeName : [UIFont fontWithName:kFontAwesomeFamilyName size:20] , NSForegroundColorAttributeName: [UIColor grayColor]};
+    [[UIBarButtonItem appearance] setTitleTextAttributes:enabledBarButtonAppearanceDict forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:disabledBarButtonAppearanceDict forState:UIControlStateDisabled];
 
+    // We create the views in code for primarily for ease of upgrades and not requiring an external .xib to be included
     CGRect webViewBounds = self.view.bounds;
     BOOL toolbarIsAtBottom = ![_browserOptions.toolbarposition isEqualToString:kInAppBrowserToolbarBarPositionTop];
     webViewBounds.size.height -= _browserOptions.location ? FOOTER_HEIGHT : TOOLBAR_HEIGHT;
@@ -509,29 +511,23 @@
     self.spinner.userInteractionEnabled = NO;
     [self.spinner stopAnimating];
 
-    self.closeButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)];
-    self.closeButton.enabled = YES;
-
-    UIBarButtonItem* flexibleSpaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-
-    UIBarButtonItem* fixedSpaceButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpaceButton.width = 20;
-
     float toolbarY = toolbarIsAtBottom ? self.view.bounds.size.height - TOOLBAR_HEIGHT : 0.0;
     CGRect toolbarFrame = CGRectMake(0.0, toolbarY, self.view.bounds.size.width, TOOLBAR_HEIGHT);
 
     self.toolbar = [[UIToolbar alloc] initWithFrame:toolbarFrame];
     self.toolbar.alpha = 1.000;
-    self.toolbar.autoresizesSubviews = YES;
+    //self.toolbar.autoresizesSubviews = YES;
     self.toolbar.autoresizingMask = toolbarIsAtBottom ? (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin) : UIViewAutoresizingFlexibleWidth;
-    self.toolbar.barStyle = UIBarStyleBlackOpaque;
+    /*self.toolbar.barStyle = UIBarStyleBlackOpaque;*/
     self.toolbar.clearsContextBeforeDrawing = NO;
     self.toolbar.clipsToBounds = NO;
-    self.toolbar.contentMode = UIViewContentModeScaleToFill;
+    //self.toolbar.contentMode = UIViewContentModeScaleToFill;
     self.toolbar.hidden = NO;
     self.toolbar.multipleTouchEnabled = NO;
-    self.toolbar.opaque = NO;
+    /*self.toolbar.opaque = NO;*/
     self.toolbar.userInteractionEnabled = YES;
+    self.toolbar.barTintColor = [UIColor colorWithRed:0.0/255.0 green:193.0/255.0 blue:74.0/255.0 alpha:1.0];
+    self.toolbar.tintColor = [UIColor whiteColor];
 
     CGFloat labelInset = 5.0;
     float locationBarY = toolbarIsAtBottom ? self.view.bounds.size.height - FOOTER_HEIGHT : self.view.bounds.size.height - LOCATIONBAR_HEIGHT;
@@ -565,22 +561,35 @@
     self.addressLabel.textColor = [UIColor colorWithWhite:1.000 alpha:1.000];
     self.addressLabel.userInteractionEnabled = NO;
 
-    NSString* frontArrowString = NSLocalizedString(@"►", nil); // create arrow from Unicode char
-    self.forwardButton = [[UIBarButtonItem alloc] initWithTitle:frontArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
-    self.forwardButton.enabled = YES;
-    self.forwardButton.imageInsets = UIEdgeInsetsZero;
+    self.backButton = [self createBackButton];
+    self.forwardButton = [self createForwardButton];
+    self.closeButton = [self createCloseButton:_browserOptions.closebuttoncaption];
 
-    NSString* backArrowString = NSLocalizedString(@"◄", nil); // create arrow from Unicode char
-    self.backButton = [[UIBarButtonItem alloc] initWithTitle:backArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
-    self.backButton.enabled = YES;
-    self.backButton.imageInsets = UIEdgeInsetsZero;
+    UIBarButtonItem *external,*separator, *flexible, *fixed;
+    separator = [self createSeparator];
+    fixed = [self createFixedWidthButton:20.0];
+    flexible = [self createFlexibleButton];
+    external = [self createOpenExternalButton];
 
-    [self.toolbar setItems:@[self.closeButton, flexibleSpaceButton, self.backButton, fixedSpaceButton, self.forwardButton]];
+    [self.toolbar setItems:@[self.closeButton, flexible, self.backButton, fixed, self.forwardButton, fixed , external]];
 
-    self.view.backgroundColor = [UIColor grayColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.toolbar];
     [self.view addSubview:self.addressLabel];
     [self.view addSubview:self.spinner];
+}
+
+- (UIBarButtonItem*) createFlexibleButton
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    return button;
+}
+
+- (UIBarButtonItem*) createFixedWidthButton:(CGFloat)width
+{
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [button setWidth:width];
+    return button;
 }
 
 - (void) setWebViewFrame : (CGRect) frame {
@@ -588,18 +597,54 @@
     [self.webView setFrame:frame];
 }
 
-- (void)setCloseButtonTitle:(NSString*)title
+- (UIBarButtonItem*)createOpenExternalButton
 {
-    // the advantage of using UIBarButtonSystemItemDone is the system will localize it for you automatically
-    // but, if you want to set this yourself, knock yourself out (we can't set the title for a system Done button, so we have to create a new one)
-    self.closeButton = nil;
-    self.closeButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:@selector(close)];
-    self.closeButton.enabled = YES;
-    self.closeButton.tintColor = [UIColor colorWithRed:60.0 / 255.0 green:136.0 / 255.0 blue:230.0 / 255.0 alpha:1];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-share-square-o"] style:UIBarButtonItemStyleBordered target:self action:@selector(openInSystem)];
+    [button setWidth:20.0];
+    return button;
+}
 
-    NSMutableArray* items = [self.toolbar.items mutableCopy];
-    [items replaceObjectAtIndex:0 withObject:self.closeButton];
-    [self.toolbar setItems:items];
+- (UIBarButtonItem*)createSeparator
+{
+    UIButton *sep = [UIButton buttonWithType:UIButtonTypeCustom];
+    sep.backgroundColor = [UIColor whiteColor];
+    sep.frame = CGRectMake(0, 0 , 1, TOOLBAR_HEIGHT );
+    sep.layer.borderColor = [UIColor colorWithRed:0.0/255.0 green:193.0/255.0 blue:74.0/255.0 alpha:0.5].CGColor;
+    [sep setTitle:@"" forState:UIControlStateNormal];
+    [sep.layer setBorderWidth:1.0f];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithCustomView:sep];
+    return button;
+}
+
+- (UIBarButtonItem*)createCloseButton:(NSString*)title
+{
+    UIBarButtonItem *button = NULL;
+    if ([title length] == 0) {
+        button = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)];
+    } else {
+//        title = [@" " stringByAppendingString:title];
+//        title = [[NSString fontAwesomeIconStringForIconIdentifier:@"fa-chevron-left"] stringByAppendingString:title];
+        button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:@selector(close)];
+    }
+    button.enabled = YES;
+
+    return button;
+}
+
+- (UIBarButtonItem*)createBackButton
+{
+    NSString* backArrowString = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-arrow-left"]; //NSLocalizedString(@"◄", nil); // create arrow from Unicode char
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:backArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
+    button.enabled = NO;
+
+    return button;
+}
+- (UIBarButtonItem*)createForwardButton
+{
+    NSString* forwardArrowString = [NSString fontAwesomeIconStringForIconIdentifier:@"fa-arrow-right"]; //NSLocalizedString(@"◄", nil); // create arrow from Unicode char
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:forwardArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
+    button.enabled = NO;
+    return button;
 }
 
 - (void)showLocationBar:(BOOL)show
@@ -750,6 +795,17 @@
     });
 }
 
+- (void)openInSystem
+{
+    if ([[UIApplication sharedApplication] canOpenURL:self.currentURL]) {
+        [[UIApplication sharedApplication] openURL:self.currentURL];
+    } else { // handle any custom schemes to plugins
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLNotification object:self.currentURL]];
+    }
+
+    [self close];
+}
+
 - (void)navigateTo:(NSURL*)url
 {
     NSURLRequest* request = [NSURLRequest requestWithURL:url];
@@ -810,8 +866,9 @@
     // loading url, start spinner, update back/forward
 
     self.addressLabel.text = NSLocalizedString(@"Loading...", nil);
-    self.backButton.enabled = theWebView.canGoBack;
-    self.forwardButton.enabled = theWebView.canGoForward;
+    BOOL back = theWebView.canGoBack, forward = theWebView.canGoForward;
+    self.backButton.enabled = back;
+    self.forwardButton.enabled = forward;
 
     [self.spinner startAnimating];
 
@@ -833,8 +890,9 @@
     // update url, stop spinner, update back/forward
 
     self.addressLabel.text = [self.currentURL absoluteString];
-    self.backButton.enabled = theWebView.canGoBack;
-    self.forwardButton.enabled = theWebView.canGoForward;
+    BOOL back = theWebView.canGoBack, forward = theWebView.canGoForward;
+    self.backButton.enabled = back;
+    self.forwardButton.enabled = forward;
 
     [self.spinner stopAnimating];
 
@@ -862,8 +920,10 @@
     // log fail message, stop spinner, update back/forward
     NSLog(@"webView:didFailLoadWithError - %ld: %@", (long)error.code, [error localizedDescription]);
 
-    self.backButton.enabled = theWebView.canGoBack;
-    self.forwardButton.enabled = theWebView.canGoForward;
+    BOOL back = theWebView.canGoBack, forward = theWebView.canGoForward;
+    self.backButton.enabled = back;
+    self.forwardButton.enabled = forward;
+
     [self.spinner stopAnimating];
 
     self.addressLabel.text = NSLocalizedString(@"Load Error", nil);

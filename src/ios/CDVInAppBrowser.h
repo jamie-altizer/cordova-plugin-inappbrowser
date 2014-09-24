@@ -17,6 +17,8 @@
  under the License.
  */
 
+#import "NSString+FontAwesome.h"
+#import "UIFont+FontAwesome.h"
 #import <Cordova/CDVPlugin.h>
 #import <Cordova/CDVInvokedUrlCommand.h>
 #import <Cordova/CDVScreenOrientationDelegate.h>
@@ -88,7 +90,14 @@
 - (void)navigateTo:(NSURL*)url;
 - (void)showLocationBar:(BOOL)show;
 - (void)showToolBar:(BOOL)show : (NSString *) toolbarPosition;
-- (void)setCloseButtonTitle:(NSString*)title;
+- (UIBarButtonItem*)createSeparator;
+- (UIBarButtonItem*)createOpenExternalButton;
+- (void)openInSystem;
+- (UIBarButtonItem*)createFixedWidthButton:(CGFloat)width;
+- (UIBarButtonItem*)createFlexibleButton;
+- (UIBarButtonItem*)createBackButton;
+- (UIBarButtonItem*)createForwardButton;
+- (UIBarButtonItem*)createCloseButton:(NSString*)title;
 
 - (id)initWithUserAgent:(NSString*)userAgent prevUserAgent:(NSString*)prevUserAgent browserOptions: (CDVInAppBrowserOptions*) browserOptions;
 
