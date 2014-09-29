@@ -18,17 +18,22 @@
 */
 package org.apache.cordova.inappbrowser;
 
+import android.R;
 import android.annotation.SuppressLint;
 import org.apache.cordova.inappbrowser.InAppBrowserDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -47,7 +52,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.Config;
 import org.apache.cordova.CordovaArgs;
@@ -60,6 +64,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.StringTokenizer;
+
+import gov.michigan.mipage.*;
 
 @SuppressLint("SetJavaScriptEnabled")
 public class InAppBrowser extends CordovaPlugin {
@@ -88,7 +94,7 @@ public class InAppBrowser extends CordovaPlugin {
     private String buttonLabel = "Done";
     private boolean clearAllCache= false;
     private boolean clearSessionCache=false;
-
+    private Typeface fontAwesome = null;
     /**
      * Executes the request and returns PluginResult.
      *
@@ -98,7 +104,7 @@ public class InAppBrowser extends CordovaPlugin {
      * @return              A PluginResult object with a status and message.
      */
     public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
-        if (action.equals("open")) {
+    	if (action.equals("open")) {
             this.callbackContext = callbackContext;
             final String url = args.getString(0);
             String t = args.optString(1);
@@ -120,24 +126,21 @@ public class InAppBrowser extends CordovaPlugin {
                         // load in webview
                         if (url.startsWith("file://") || url.startsWith("javascript:") 
                                 || Config.isUrlWhiteListed(url)) {
-                            Log.d(LOG_TAG, "loading in webview");
                             webView.loadUrl(url);
                         }
                         //Load the dialer
                         else if (url.startsWith(WebView.SCHEME_TEL))
                         {
                             try {
-                                Log.d(LOG_TAG, "loading in dialer");
                                 Intent intent = new Intent(Intent.ACTION_DIAL);
                                 intent.setData(Uri.parse(url));
-                                cordova.getActivity().startActivity(intent);
+                               cordova.getActivity().startActivity(intent);
                             } catch (android.content.ActivityNotFoundException e) {
                                 LOG.e(LOG_TAG, "Error dialing " + url + ": " + e.toString());
                             }
                         }
                         // load in InAppBrowser
                         else {
-                            Log.d(LOG_TAG, "loading in InAppBrowser");
                             result = showWebPage(url, features);
                         }
                     }
@@ -459,56 +462,46 @@ public class InAppBrowser extends CordovaPlugin {
 
                 return value;
             }
-
+            
             public void run() {
                 // Let's create the main dialog
-                dialog = new InAppBrowserDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
+            	final Context ctx = cordova.getActivity();
+                dialog = new InAppBrowserDialog(ctx, android.R.style.Theme_NoTitleBar);
                 dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCancelable(true);
                 dialog.setInAppBroswer(getInAppBrowser());
 
                 // Main container layout
-                LinearLayout main = new LinearLayout(cordova.getActivity());
+                LinearLayout main = new LinearLayout(ctx);
                 main.setOrientation(LinearLayout.VERTICAL);
 
                 // Toolbar layout
-                RelativeLayout toolbar = new RelativeLayout(cordova.getActivity());
+                RelativeLayout toolbar = new RelativeLayout(ctx);
                 //Please, no more black! 
-                toolbar.setBackgroundColor(android.graphics.Color.LTGRAY);
                 toolbar.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, this.dpToPixels(44)));
                 toolbar.setPadding(this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2), this.dpToPixels(2));
                 toolbar.setHorizontalGravity(Gravity.LEFT);
-                toolbar.setVerticalGravity(Gravity.TOP);
+                toolbar.setVerticalGravity(Gravity.CENTER_VERTICAL);
 
                 // Action Button Container layout
-                RelativeLayout actionButtonContainer = new RelativeLayout(cordova.getActivity());
+                RelativeLayout actionButtonContainer = new RelativeLayout(ctx);
                 actionButtonContainer.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
                 actionButtonContainer.setHorizontalGravity(Gravity.LEFT);
                 actionButtonContainer.setVerticalGravity(Gravity.CENTER_VERTICAL);
                 actionButtonContainer.setId(1);
 
                 // Back button
-                Button back = new Button(cordova.getActivity());
+                final ButtonAwesome back = new ButtonAwesome(ctx);
                 RelativeLayout.LayoutParams backLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
                 backLayoutParams.addRule(RelativeLayout.ALIGN_LEFT);
                 back.setLayoutParams(backLayoutParams);
                 back.setContentDescription("Back Button");
                 back.setId(2);
-                /*
-                back.setText("<");
-                */
-                Resources activityRes = cordova.getActivity().getResources();
-                int backResId = activityRes.getIdentifier("ic_action_previous_item", "drawable", cordova.getActivity().getPackageName());
-                Drawable backIcon = activityRes.getDrawable(backResId);
-                if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN)
-                {
-                    back.setBackgroundDrawable(backIcon);
-                }
-                else
-                {
-                    back.setBackground(backIcon);
-                }
+                back.setBackgroundResource(ExternalResourceHelper.getDrawable(ctx, "buttonbackground"));
+                back.setTextColor(ExternalResourceHelper.getColor(ctx, "gray"));
+                back.setText(ExternalResourceHelper.getStrings(ctx, "fa_chevron_left"));
+                back.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 back.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         goBack();
@@ -516,31 +509,42 @@ public class InAppBrowser extends CordovaPlugin {
                 });
 
                 // Forward button
-                Button forward = new Button(cordova.getActivity());
+                final ButtonAwesome forward = new ButtonAwesome(ctx);
                 RelativeLayout.LayoutParams forwardLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
                 forwardLayoutParams.addRule(RelativeLayout.RIGHT_OF, 2);
                 forward.setLayoutParams(forwardLayoutParams);
                 forward.setContentDescription("Forward Button");
                 forward.setId(3);
-                //forward.setText(">");
-                int fwdResId = activityRes.getIdentifier("ic_action_next_item", "drawable", cordova.getActivity().getPackageName());
-                Drawable fwdIcon = activityRes.getDrawable(fwdResId);
-                if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN)
-                {
-                    forward.setBackgroundDrawable(fwdIcon);
-                }
-                else
-                {
-                    forward.setBackground(fwdIcon);
-                }
+                forward.setBackgroundResource(ExternalResourceHelper.getDrawable(ctx, "buttonbackground"));
+                forward.setTextColor(ExternalResourceHelper.getColor(ctx, "gray"));
+                forward.setText(ExternalResourceHelper.getStrings(ctx, "fa_chevron_right"));
+                forward.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
                 forward.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         goForward();
                     }
                 });
 
+                // external button
+                ButtonAwesome external = new ButtonAwesome(ctx);
+                RelativeLayout.LayoutParams externalLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
+                externalLayoutParams.addRule(RelativeLayout.RIGHT_OF, 3);
+                external.setLayoutParams(externalLayoutParams);
+                external.setContentDescription("Back Button");
+                external.setId(7);
+                external.setBackgroundResource(ExternalResourceHelper.getDrawable(ctx, "buttonbackground"));
+                external.setTextColor(ExternalResourceHelper.getColor(ctx, "white"));
+                external.setText(ExternalResourceHelper.getStrings(ctx, "fa_share_square_o"));
+                external.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+                external.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                    	openExternal(edittext.getText().toString());
+                    	closeDialog();
+                    }
+                });
+                
                 // Edit Text Box
-                edittext = new EditText(cordova.getActivity());
+                edittext = new EditText(ctx);
                 RelativeLayout.LayoutParams textLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
                 textLayoutParams.addRule(RelativeLayout.RIGHT_OF, 1);
                 textLayoutParams.addRule(RelativeLayout.LEFT_OF, 5);
@@ -551,6 +555,24 @@ public class InAppBrowser extends CordovaPlugin {
                 edittext.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
                 edittext.setImeOptions(EditorInfo.IME_ACTION_GO);
                 edittext.setInputType(InputType.TYPE_NULL); // Will not except input... Makes the text NON-EDITABLE
+                edittext.addTextChangedListener(new TextWatcher() {
+                	public void afterTextChanged(Editable s) {
+                		if (s.length() > 0) {
+                			if (inAppWebView.canGoBack()) {
+                				back.setTextColor(ExternalResourceHelper.getColor(ctx, "white"));
+                			} else {
+                				back.setTextColor(ExternalResourceHelper.getColor(ctx, "gray"));
+                			}
+                			if (inAppWebView.canGoForward()) {
+                				forward.setTextColor(ExternalResourceHelper.getColor(ctx, "white"));
+                			} else {
+                				forward.setTextColor(ExternalResourceHelper.getColor(ctx, "gray"));
+                			}
+                		}
+                	}
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+                    public void onTextChanged(CharSequence s, int start, int before, int count){}
+                });
                 edittext.setOnKeyListener(new View.OnKeyListener() {
                     public boolean onKey(View v, int keyCode, KeyEvent event) {
                         // If the event is a key-down event on the "enter" button
@@ -563,31 +585,24 @@ public class InAppBrowser extends CordovaPlugin {
                 });
 
                 // Close button
-                Button close = new Button(cordova.getActivity());
+                ButtonAwesome close = new ButtonAwesome(ctx);
                 RelativeLayout.LayoutParams closeLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
                 closeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 close.setLayoutParams(closeLayoutParams);
-                forward.setContentDescription("Close Button");
+                close.setContentDescription("Close Button");
                 close.setId(5);
-                //close.setText(buttonLabel);
-                int closeResId = activityRes.getIdentifier("ic_action_remove", "drawable", cordova.getActivity().getPackageName());
-                Drawable closeIcon = activityRes.getDrawable(closeResId);
-                if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN)
-                {
-                    close.setBackgroundDrawable(closeIcon);
-                }
-                else
-                {
-                    close.setBackground(closeIcon);
-                }
+                close.setBackgroundResource(ExternalResourceHelper.getDrawable(ctx, "buttonbackground"));
+                close.setText(ExternalResourceHelper.getStrings(ctx, "fa_times"));
+                close.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);                
+                close.setTextColor(ExternalResourceHelper.getColor(ctx, "white"));
                 close.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         closeDialog();
                     }
                 });
-
+                
                 // WebView
-                inAppWebView = new WebView(cordova.getActivity());
+                inAppWebView = new WebView(ctx);
                 inAppWebView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
                 inAppWebView.setWebChromeClient(new InAppChromeClient(thatWebView));
                 WebViewClient client = new InAppBrowserClient(thatWebView, edittext);
@@ -602,7 +617,7 @@ public class InAppBrowser extends CordovaPlugin {
                 Bundle appSettings = cordova.getActivity().getIntent().getExtras();
                 boolean enableDatabase = appSettings == null ? true : appSettings.getBoolean("InAppBrowserStorageEnabled", true);
                 if (enableDatabase) {
-                    String databasePath = cordova.getActivity().getApplicationContext().getDir("inAppBrowserDB", Context.MODE_PRIVATE).getPath();
+                    String databasePath = ctx.getApplicationContext().getDir("inAppBrowserDB", Context.MODE_PRIVATE).getPath();
                     settings.setDatabasePath(databasePath);
                     settings.setDatabaseEnabled(true);
                 }
@@ -620,21 +635,25 @@ public class InAppBrowser extends CordovaPlugin {
                 inAppWebView.getSettings().setUseWideViewPort(true);
                 inAppWebView.requestFocus();
                 inAppWebView.requestFocusFromTouch();
-
+                		
                 // Add the back and forward buttons to our action button container layout
                 actionButtonContainer.addView(back);
                 actionButtonContainer.addView(forward);
+                actionButtonContainer.addView(external);
 
                 // Add the views to our toolbar
                 toolbar.addView(actionButtonContainer);
-                toolbar.addView(edittext);
+                if (getShowLocationBar()) {
+                	toolbar.addView(edittext);
+                }
+                toolbar.setBackgroundColor(ExternalResourceHelper.getColor(ctx, "green"));
                 toolbar.addView(close);
 
                 // Don't add the toolbar if its been disabled
-                if (getShowLocationBar()) {
+                //if (getShowLocationBar()) {
                     // Add our toolbar to our main view/layout
                     main.addView(toolbar);
-                }
+                //}
 
                 // Add our webview to our main view/layout
                 main.addView(inAppWebView);

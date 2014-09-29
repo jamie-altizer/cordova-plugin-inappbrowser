@@ -47,22 +47,15 @@
         <source-file src="src/android/InAppBrowser.java" target-dir="src/org/apache/cordova/inappbrowser" />
         <source-file src="src/android/InAppBrowserDialog.java" target-dir="src/org/apache/cordova/inappbrowser" />
         <source-file src="src/android/InAppChromeClient.java" target-dir="src/org/apache/cordova/inappbrowser" />
+        <source-file src="src/android/FontAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
+        <source-file src="src/android/ExternalResourceHelper.java" target-dir="src/org/apache/cordova/inappbrowser" />
+        <source-file src="src/android/DrawableAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
+        <source-file src="src/android/ButtonAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
+        <source-file src="src/android/TextAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
 
-        <!--  drawable src/android/resources -->
-        <resource-file src="src/android/res/drawable-hdpi/ic_action_next_item.png" target="res/drawable-hdpi/ic_action_next_item.png" />
-        <resource-file src="src/android/res/drawable-mdpi/ic_action_next_item.png" target="res/drawable-mdpi/ic_action_next_item.png" />
-        <resource-file src="src/android/res/drawable-xhdpi/ic_action_next_item.png" target="res/drawable-xhdpi/ic_action_next_item.png" />
-        <resource-file src="src/android/res/drawable-xxhdpi/ic_action_next_item.png" target="res/drawable-xxhdpi/ic_action_next_item.png" />
-
-        <resource-file src="src/android/res/drawable-hdpi/ic_action_previous_item.png" target="res/drawable-hdpi/ic_action_previous_item.png" />
-        <resource-file src="src/android/res/drawable-mdpi/ic_action_previous_item.png" target="res/drawable-mdpi/ic_action_previous_item.png" />
-        <resource-file src="src/android/res/drawable-xhdpi/ic_action_previous_item.png" target="res/drawable-xhdpi/ic_action_previous_item.png" />
-        <resource-file src="src/android/res/drawable-xxhdpi/ic_action_previous_item.png" target="res/drawable-xxhdpi/ic_action_previous_item.png" />
-
-        <resource-file src="src/android/res/drawable-hdpi/ic_action_remove.png" target="res/drawable-hdpi/ic_action_remove.png" />
-        <resource-file src="src/android/res/drawable-mdpi/ic_action_remove.png" target="res/drawable-mdpi/ic_action_remove.png" />
-        <resource-file src="src/android/res/drawable-xhdpi/ic_action_remove.png" target="res/drawable-xhdpi/ic_action_remove.png" />
-        <resource-file src="src/android/res/drawable-xxhdpi/ic_action_remove.png" target="res/drawable-xxhdpi/ic_action_remove.png" />
+        <resource-file src="src/android/res/drawable/buttonbackground.xml" target="res/drawable/buttonbackground.xml" />
+        <resource-file src="src/android/res/values/font_awesome.xml" target="res/values/font_awesome.xml" />
+        <resource-file src="src/android/assets/fontawesome_webfont.ttf" target="assets/fontawesome_webfont.ttf" />
 
     </platform>
 
