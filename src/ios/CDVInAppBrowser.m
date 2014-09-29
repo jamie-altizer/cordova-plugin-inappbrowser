@@ -599,7 +599,7 @@
 
 - (UIBarButtonItem*)createOpenExternalButton
 {
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-external-link-square"] style:UIBarButtonItemStyleBordered target:self action:@selector(openInSystem)];
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[NSString fontAwesomeIconStringForIconIdentifier:@"fa-external-link"] style:UIBarButtonItemStyleBordered target:self action:@selector(openInSystem)];
     [button setWidth:20.0];
     return button;
 }

@@ -18,9 +18,9 @@
 */
 package com.jamiealtizer.cordova.inappbrowser;
 
-import com.jamiealtizer.cordova.CordovaWebView;
-import com.jamiealtizer.cordova.LOG;
-import com.jamiealtizer.cordova.PluginResult;
+import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.LOG;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -122,7 +122,7 @@ public class InAppChromeClient extends WebChromeClient {
             else
             {
                 // Anything else with a gap: prefix should get this message
-                LOG.w(LOG_TAG, "InAppBrowser does not support Cordova API calls: " + url + " " + defaultValue); 
+                LOG.w(LOG_TAG, "InAppBrowser does not support Cordova API calls: " + url + " " + defaultValue);
                 result.cancel();
                 return true;
             }
