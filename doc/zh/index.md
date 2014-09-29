@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 這個外掛程式提供了一個 web 瀏覽器視圖，顯示在調用時`window.open()`.
 
@@ -28,7 +28,7 @@
 
 ## 安裝
 
-    cordova plugin add org.apache.cordova.inappbrowser
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
     
 
 ## window.open

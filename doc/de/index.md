@@ -17,52 +17,52 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 Dieses Plugin bietet eine Web-Browser-Ansicht, die beim Aufruf angezeigt`window.open()`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
-    
+
 
 **Hinweis**: Das InAppBrowser Fenster verhält sich wie ein Standard-Webbrowser. Auf die Cordova-API kann in diesem Moment nicht zugegriffen werden!
 
 ## Installation
 
-    cordova plugin add org.apache.cordova.inappbrowser
-    
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
+
 
 ## window.open
 
 Öffnet eine URL in einer neuen `InAppBrowser` Instanz, der aktuelle Browserinstanz oder der Systembrowser.
 
     var ref = window.open(url, target, options);
-    
+
 
 *   **Ref**: Bezugnahme auf das `InAppBrowser` Fenster. *(InAppBrowser)*
 
 *   **URL**: die URL um den *(String)* zu laden. Rufen Sie `encodeURI()` auf, wenn die URL Unicode-Zeichen enthält.
 
 *   **Ziel**: das Ziel in welchem die URL geladen werden soll. Standardmäßig entspricht dieser Wert `_self` . *(String)*
-    
+
     *   `_self`: Öffnet sich in der Cordova WebView wenn der URL in der Whitelist ist, andernfalls es öffnet sich in der`InAppBrowser`.
     *   `_blank`: Öffnet den`InAppBrowser`.
     *   `_system`: Öffnet in den System-Web-Browser.
 
 *   **Optionen**: Optionen für die `InAppBrowser` . Optional, säumige an: `location=yes` . *(String)*
-    
+
     Die `options` Zeichenfolge muss keine Leerstelle enthalten, und jede Funktion Name/Wert-Paare müssen durch ein Komma getrennt werden. Featurenamen Groß-/Kleinschreibung. Alle Plattformen unterstützen die anderen Werte:
-    
+
     *   **Lage**: Legen Sie auf `yes` oder `no` , machen die `InAppBrowser` der Adressleiste ein- oder ausschalten.
-    
+
     Nur Android:
-    
+
     *   **Closebuttoncaption**: Legen Sie auf eine Zeichenfolge als Beschriftung der **fertig** -Schaltfläche verwenden.
     *   **versteckte**: Legen Sie auf `yes` um den Browser zu erstellen und laden Sie die Seite, aber nicht zeigen. Das Loadstop-Ereignis wird ausgelöst, wenn der Ladevorgang abgeschlossen ist. Weglassen oder auf `no` (Standard), den Browser öffnen und laden normalerweise zu haben.
     *   **ClearCache**: Legen Sie auf `yes` , der Browser ist Cookiecache gelöscht, bevor das neue Fenster geöffnet wird
     *   **Clearsessioncache**: Legen Sie auf `yes` , der Sitzungs-Cookie Cache gelöscht, bevor das neue Fenster geöffnet wird
-    
+
     iOS nur:
-    
+
     *   **Closebuttoncaption**: Legen Sie auf eine Zeichenfolge als Beschriftung der **fertig** -Schaltfläche verwenden. Beachten Sie, dass Sie diesen Wert selbst zu lokalisieren müssen.
     *   **Disallowoverscroll**: Legen Sie auf `yes` oder `no` (Standard ist `no` ). Aktiviert/deaktiviert die UIWebViewBounce-Eigenschaft.
     *   **versteckte**: Legen Sie auf `yes` um den Browser zu erstellen und laden Sie die Seite, aber nicht zeigen. Das Loadstop-Ereignis wird ausgelöst, wenn der Ladevorgang abgeschlossen ist. Weglassen oder auf `no` (Standard), den Browser öffnen und laden normalerweise zu haben.
@@ -94,7 +94,7 @@ Dieses Plugin bietet eine Web-Browser-Ansicht, die beim Aufruf angezeigt`window.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     var ref2 = window.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
-    
+
 
 ### Firefox OS Macken
 
@@ -124,7 +124,7 @@ Als Plugin jedes Design erzwingen nicht besteht die Notwendigkeit, einige CSS-Re
     .inAppBrowserWrap menu li.disabled {
         color: #777;
     }
-    
+
 
 ## InAppBrowser
 
@@ -144,12 +144,12 @@ Aus einem Aufruf zurückgegebenen Objekts`window.open`.
 > Fügt einen Listener für eine Veranstaltung aus der`InAppBrowser`.
 
     ref.addEventListener(eventname, callback);
-    
+
 
 *   **Ref**: Bezugnahme auf die `InAppBrowser` Fenster *(InAppBrowser)*
 
 *   **EventName**: das Ereignis zu warten *(String)*
-    
+
     *   **Loadstart**: Ereignis wird ausgelöst, wenn die `InAppBrowser` beginnt, eine URL zu laden.
     *   **Loadstop**: Ereignis wird ausgelöst, wenn der `InAppBrowser` beendet ist, eine URL laden.
     *   **LoadError**: Ereignis wird ausgelöst, wenn der `InAppBrowser` ein Fehler auftritt, wenn Sie eine URL zu laden.
@@ -178,19 +178,19 @@ Aus einem Aufruf zurückgegebenen Objekts`window.open`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     ref.addEventListener('loadstart', function(event) { alert(event.url); });
-    
+
 
 ## removeEventListener
 
 > Entfernt einen Listener für eine Veranstaltung aus der`InAppBrowser`.
 
     ref.removeEventListener(eventname, callback);
-    
+
 
 *   **Ref**: Bezugnahme auf die `InAppBrowser` Fenster. *(InAppBrowser)*
 
 *   **EventName**: das Ereignis zu warten. *(String)*
-    
+
     *   **Loadstart**: Ereignis wird ausgelöst, wenn die `InAppBrowser` beginnt, eine URL zu laden.
     *   **Loadstop**: Ereignis wird ausgelöst, wenn der `InAppBrowser` beendet ist, eine URL laden.
     *   **LoadError**: Ereignis wird ausgelöst, wenn die `InAppBrowser` trifft einen Fehler beim Laden einer URLs.
@@ -211,14 +211,14 @@ Aus einem Aufruf zurückgegebenen Objekts`window.open`.
     var myCallback = function(event) { alert(event.url); }
     ref.addEventListener('loadstart', myCallback);
     ref.removeEventListener('loadstart', myCallback);
-    
+
 
 ## Schließen
 
 > Schließt die `InAppBrowser` Fenster.
 
     Ref.Close();
-    
+
 
 *   **Ref**: Bezugnahme auf die `InAppBrowser` Fenster *(InAppBrowser)*
 
@@ -234,14 +234,14 @@ Aus einem Aufruf zurückgegebenen Objekts`window.open`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     ref.close();
-    
+
 
 ## Karte
 
 > Zeigt ein InAppBrowser-Fenster, das geöffnet wurde, versteckt. Aufrufen, dies hat keine Auswirkungen, wenn die InAppBrowser schon sichtbar war.
 
     Ref.Show();
-    
+
 
 *   **Ref**: Verweis auf die (InAppBrowser) Fenster`InAppBrowser`)
 
@@ -256,24 +256,24 @@ Aus einem Aufruf zurückgegebenen Objekts`window.open`.
     var ref = window.open('http://apache.org', '_blank', 'hidden=yes');
     // some time later...
     ref.show();
-    
+
 
 ## executeScript
 
 > Fügt JavaScript-Code in das `InAppBrowser` Fenster
 
     ref.executeScript(details, callback);
-    
+
 
 *   **Ref**: Bezugnahme auf die `InAppBrowser` Fenster. *(InAppBrowser)*
 
 *   **InjectDetails**: Informationen über das Skript ausgeführt, angeben, entweder ein `file` oder `code` Schlüssel. *(Objekt)*
-    
+
     *   **Datei**: URL des Skripts zu injizieren.
     *   **Code**: Text des Skripts zu injizieren.
 
 *   **Rückruf**: die Funktion, die ausgeführt wird, nachdem der JavaScript-Code injiziert wird.
-    
+
     *   Wenn das eingefügte Skript vom Typ ist `code` , der Rückruf führt mit einen einzelnen Parameter, der der Rückgabewert des Skripts ist, umwickelt ein `Array` . Bei Multi-Line-Skripten ist der Rückgabewert von der letzten Anweisung oder den letzten Ausdruck ausgewertet.
 
 ### Unterstützte Plattformen
@@ -288,19 +288,19 @@ Aus einem Aufruf zurückgegebenen Objekts`window.open`.
     ref.addEventListener('loadstop', function() {
         ref.executeScript({file: "myscript.js"});
     });
-    
+
 
 ## insertCSS
 
 > Injiziert CSS in der `InAppBrowser` Fenster.
 
     ref.insertCSS(details, callback);
-    
+
 
 *   **Ref**: Bezugnahme auf die `InAppBrowser` Fenster *(InAppBrowser)*
 
 *   **InjectDetails**: Informationen über das Skript ausgeführt, angeben, entweder ein `file` oder `code` Schlüssel. *(Objekt)*
-    
+
     *   **Datei**: URL des Stylesheets zu injizieren.
     *   **Code**: Text des Stylesheets zu injizieren.
 

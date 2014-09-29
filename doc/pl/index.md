@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 Plugin daje widok przeglądarki sieci web, które są wyświetlane podczas wywoływania`window.open()`.
 
@@ -28,7 +28,7 @@ Plugin daje widok przeglądarki sieci web, które są wyświetlane podczas wywo�
 
 ## Instalacji
 
-    cordova plugin add org.apache.cordova.inappbrowser
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
     
 
 ## window.open

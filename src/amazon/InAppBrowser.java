@@ -16,10 +16,10 @@
        specific language governing permissions and limitations
        under the License.
 */
-package org.apache.cordova.inappbrowser;
+package com.jamiealtizer.cordova.inappbrowser;
 
 import android.annotation.SuppressLint;
-import org.apache.cordova.inappbrowser.InAppBrowserDialog;
+import com.jamiealtizer.cordova.inappbrowser.InAppBrowserDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -53,14 +53,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import org.apache.cordova.CallbackContext;
-import org.apache.cordova.Config;
-import org.apache.cordova.CordovaArgs;
-import org.apache.cordova.CordovaPlugin;
-import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.LOG;
-import org.apache.cordova.PluginResult;
-import org.apache.cordova.CordovaActivity;
+import com.jamiealtizer.cordova.CallbackContext;
+import com.jamiealtizer.cordova.Config;
+import com.jamiealtizer.cordova.CordovaArgs;
+import com.jamiealtizer.cordova.CordovaPlugin;
+import com.jamiealtizer.cordova.CordovaWebView;
+import com.jamiealtizer.cordova.LOG;
+import com.jamiealtizer.cordova.PluginResult;
+import com.jamiealtizer.cordova.CordovaActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 

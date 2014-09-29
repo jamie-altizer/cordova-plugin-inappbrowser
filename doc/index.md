@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 This plugin provides a web browser view that displays when calling `window.open()`.
 
@@ -28,7 +28,7 @@ and can't access Cordova APIs.
 
 ## Installation
 
-    cordova plugin add org.apache.cordova.inappbrowser
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
 
 ## window.open
 

@@ -16,7 +16,7 @@
        specific language governing permissions and limitations
        under the License.
 */
-package org.apache.cordova.inappbrowser;
+package com.jamiealtizer.cordova.inappbrowser;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

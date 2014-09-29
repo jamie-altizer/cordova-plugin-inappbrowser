@@ -1,4 +1,4 @@
-package org.apache.cordova.inappbrowser;
+package com.jamiealtizer.cordova.inappbrowser;
 
 import android.content.Context;
 import android.graphics.Typeface;

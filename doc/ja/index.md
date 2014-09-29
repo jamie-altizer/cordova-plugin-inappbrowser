@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 このプラグインを呼び出すときに表示される web ブラウザーのビューを提供します`window.open()`.
 
@@ -28,7 +28,7 @@
 
 ## インストール
 
-    cordova plugin add org.apache.cordova.inappbrowser
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
     
 
 ## window.open

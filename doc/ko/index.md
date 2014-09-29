@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 이 플러그인은를 호출할 때 표시 하는 웹 브라우저 보기를 제공 합니다.`window.open()`.
 
@@ -28,7 +28,7 @@
 
 ## 설치
 
-    cordova plugin add org.apache.cordova.inappbrowser
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
     
 
 ## window.open

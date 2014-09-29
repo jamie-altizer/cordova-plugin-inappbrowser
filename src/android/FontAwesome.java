@@ -1,4 +1,4 @@
-package org.apache.cordova.inappbrowser;
+package com.jamiealtizer.cordova.inappbrowser;
 
 public class FontAwesome {
     public static String fa_glass = "&#xf000;";

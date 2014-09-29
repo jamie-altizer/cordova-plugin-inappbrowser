@@ -1,4 +1,4 @@
-package org.apache.cordova.inappbrowser;
+package com.jamiealtizer.cordova.inappbrowser;
 
 import junit.framework.Assert;
 import android.content.Context;

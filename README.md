@@ -17,6 +17,6 @@
          under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 Plugin documentation: [doc/index.md](doc/index.md)

@@ -17,7 +17,7 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 Questo plugin fornisce una vista di browser web che viene visualizzata quando si chiama`window.open()`.
 
@@ -28,7 +28,7 @@ Questo plugin fornisce una vista di browser web che viene visualizzata quando si
 
 ## Installazione
 
-    cordova plugin add org.apache.cordova.inappbrowser
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
     
 
 ## window.open

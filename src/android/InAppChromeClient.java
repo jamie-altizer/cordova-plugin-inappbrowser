@@ -16,11 +16,11 @@
        specific language governing permissions and limitations
        under the License.
 */
-package org.apache.cordova.inappbrowser;
+package com.jamiealtizer.cordova.inappbrowser;
 
-import org.apache.cordova.CordovaWebView;
-import org.apache.cordova.LOG;
-import org.apache.cordova.PluginResult;
+import com.jamiealtizer.cordova.CordovaWebView;
+import com.jamiealtizer.cordova.LOG;
+import com.jamiealtizer.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 

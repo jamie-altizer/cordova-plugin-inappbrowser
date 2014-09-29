@@ -17,52 +17,52 @@
     under the License.
 -->
 
-# org.apache.cordova.inappbrowser
+# com.jamiealtizer.cordova.inappbrowser
 
 Este plugin proporciona una vista de navegador web que se muestra cuando se llama a`window.open()`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
-    
+
 
 **Nota**: InAppBrowser la ventana se comporta como un navegador web estándar y no pueden acceder a Cordova APIs.
 
 ## Instalación
 
-    cordova plugin add org.apache.cordova.inappbrowser
-    
+    cordova plugin add com.jamiealtizer.cordova.inappbrowser
+
 
 ## window.open
 
 Se abre una dirección URL en una nueva `InAppBrowser` ejemplo, la instancia actual del navegador o el navegador del sistema.
 
     var ref = window.open(url, target, options);
-    
+
 
 *   **ref**: referencia a la `InAppBrowser` ventana. *(InAppBrowser)*
 
 *   **URL**: el URL para cargar *(String)*. Llame a `encodeURI()` en este si la URL contiene caracteres Unicode.
 
 *   **objetivo**: el objetivo en el que se carga la URL, un parámetro opcional que por defecto es `_self` . *(String)*
-    
+
     *   `_self`: Se abre en el Cordova WebView si la URL está en la lista blanca, de lo contrario se abre en el`InAppBrowser`.
     *   `_blank`: Se abre en el`InAppBrowser`.
     *   `_system`: Se abre en el navegador web del sistema.
 
 *   **Opciones**: opciones para el `InAppBrowser` . Opcional, contumaz a: `location=yes` . *(String)*
-    
+
     La `options` cadena no debe contener ningún espacio en blanco, y pares nombre/valor de cada característica deben estar separados por una coma. Los nombres de función son minúsculas. Todas las plataformas admiten el valor siguiente:
-    
+
     *   **Ubicación**: A `yes` o `no` para activar el `InAppBrowser` de barra de ubicación activado o desactivado.
-    
+
     Android sólo:
-    
+
     *   **closebuttoncaption**: establecer una cadena para usar como título del botón **hecho** .
     *   **oculta**: a `yes` para crear el navegador y cargar la página, pero no lo demuestra. El evento loadstop se desencadena cuando termine la carga. Omitir o a `no` (por defecto) para que el navegador abra y carga normalmente.
     *   **clearcache**: a `yes` para que el navegador es caché de galleta despejado antes de que se abra la nueva ventana
     *   **clearsessioncache**: a `yes` que la caché de cookie de sesión despejado antes de que se abra la nueva ventana
-    
+
     Sólo iOS:
-    
+
     *   **closebuttoncaption**: establecer una cadena para usar como título del botón **hecho** . Tenga en cuenta que necesitas localizar este valor por sí mismo.
     *   **disallowoverscroll**: A `yes` o `no` (valor por defecto es `no` ). Activa/desactiva la propiedad UIWebViewBounce.
     *   **oculta**: a `yes` para crear el navegador y cargar la página, pero no lo demuestra. El evento loadstop se desencadena cuando termine la carga. Omitir o a `no` (por defecto) para que el navegador abra y carga normalmente.
@@ -94,7 +94,7 @@ Se abre una dirección URL en una nueva `InAppBrowser` ejemplo, la instancia act
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     var ref2 = window.open(encodeURI('http://ja.m.wikipedia.org/wiki/ハングル'), '_blank', 'location=yes');
-    
+
 
 ### Firefox OS rarezas
 
@@ -124,7 +124,7 @@ Como plugin no cumplir cualquier diseño es necesario añadir algunas reglas CSS
     .inAppBrowserWrap menu li.disabled {
         color: #777;
     }
-    
+
 
 ## InAppBrowser
 
@@ -144,12 +144,12 @@ El objeto devuelto desde una llamada a`window.open`.
 > Añade un detector para un evento de la`InAppBrowser`.
 
     ref.addEventListener(eventname, callback);
-    
+
 
 *   **ref**: referencia a la `InAppBrowser` ventana *(InAppBrowser)*
 
 *   **eventName**: el evento para escuchar *(String)*
-    
+
     *   **loadstart**: evento desencadena cuando el `InAppBrowser` comienza a cargar una dirección URL.
     *   **loadstop**: evento desencadena cuando el `InAppBrowser` termina cargando una dirección URL.
     *   **loaderror**: evento desencadena cuando el `InAppBrowser` encuentra un error al cargar una dirección URL.
@@ -178,19 +178,19 @@ El objeto devuelto desde una llamada a`window.open`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     ref.addEventListener('loadstart', function(event) { alert(event.url); });
-    
+
 
 ## removeEventListener
 
 > Elimina un detector para un evento de la`InAppBrowser`.
 
     ref.removeEventListener(eventname, callback);
-    
+
 
 *   **ref**: referencia a la `InAppBrowser` ventana. *(InAppBrowser)*
 
 *   **eventName**: dejar de escuchar para el evento. *(String)*
-    
+
     *   **loadstart**: evento desencadena cuando el `InAppBrowser` comienza a cargar una dirección URL.
     *   **loadstop**: evento desencadena cuando el `InAppBrowser` termina cargando una dirección URL.
     *   **loaderror**: evento desencadena cuando el `InAppBrowser` se encuentra con un error al cargar una dirección URL.
@@ -211,14 +211,14 @@ El objeto devuelto desde una llamada a`window.open`.
     var myCallback = function(event) { alert(event.url); }
     ref.addEventListener('loadstart', myCallback);
     ref.removeEventListener('loadstart', myCallback);
-    
+
 
 ## close
 
 > Se cierra el `InAppBrowser` ventana.
 
     Ref.Close();
-    
+
 
 *   **ref**: referencia a la `InAppBrowser` ventana *(InAppBrowser)*
 
@@ -234,14 +234,14 @@ El objeto devuelto desde una llamada a`window.open`.
 
     var ref = window.open('http://apache.org', '_blank', 'location=yes');
     ref.close();
-    
+
 
 ## show
 
 > Muestra una ventana InAppBrowser que abrió sus puertas ocultada. Esto no tiene efecto si el InAppBrowser ya era visible.
 
     Ref.Show();
-    
+
 
 *   **ref**: referencia a la (ventana) InAppBrowser`InAppBrowser`)
 
@@ -256,24 +256,24 @@ El objeto devuelto desde una llamada a`window.open`.
     var ref = window.open('http://apache.org', '_blank', 'hidden=yes');
     // some time later...
     ref.show();
-    
+
 
 ## executeScript
 
 > Inyecta código JavaScript en la `InAppBrowser` ventana
 
     ref.executeScript(details, callback);
-    
+
 
 *   **ref**: referencia a la `InAppBrowser` ventana. *(InAppBrowser)*
 
 *   **injectDetails**: detalles de la secuencia de comandos para ejecutar, o especificar un `file` o `code` clave. *(Objeto)*
-    
+
     *   **archivo**: URL de la secuencia de comandos para inyectar.
     *   **código**: texto de la escritura para inyectar.
 
 *   **devolución de llamada**: la función que se ejecuta después de inyecta el código JavaScript.
-    
+
     *   Si el script inyectado es de tipo `code` , la devolución de llamada se ejecuta con un solo parámetro, que es el valor devuelto por el guión, envuelto en un `Array` . Para los scripts de varias líneas, este es el valor devuelto de la última declaración, o la última expresión evaluada.
 
 ### Plataformas soportadas
@@ -288,19 +288,19 @@ El objeto devuelto desde una llamada a`window.open`.
     ref.addEventListener('loadstop', function() {
         ref.executeScript({file: "myscript.js"});
     });
-    
+
 
 ## insertCSS
 
 > Inyecta CSS en la `InAppBrowser` ventana.
 
     ref.insertCSS(details, callback);
-    
+
 
 *   **ref**: referencia a la `InAppBrowser` ventana *(InAppBrowser)*
 
 *   **injectDetails**: detalles de la secuencia de comandos para ejecutar, o especificar un `file` o `code` clave. *(Objeto)*
-    
+
     *   **archivo**: URL de la hoja de estilos para inyectar.
     *   **código**: texto de la hoja de estilos para inyectar.
 
