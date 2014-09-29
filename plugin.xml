@@ -117,7 +117,7 @@
         <source-file src="src/ios/NSString+FontAwesome.m" />
         <header-file src="src/ios/UIFont+FontAwesome.h" />
         <source-file src="src/ios/UIFont+FontAwesome.m" />
-        <resource-file src="FontAwesome.ttf" />
+        <resource-file src="src/ios/FontAwesome.ttf" />
         <config-file target="*-Info.plist" parent="Fonts provided by application">
             <array>
                 <dict>
