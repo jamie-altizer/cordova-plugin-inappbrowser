@@ -55,7 +55,7 @@
 
         <resource-file src="src/android/res/drawable/buttonbackground.xml" target="res/drawable/buttonbackground.xml" />
         <resource-file src="src/android/res/values/font_awesome.xml" target="res/values/font_awesome.xml" />
-        <resource-file src="src/android/assets/fontawesome-webfont.ttf" target="assets/fontawesome_webfont.ttf" />
+        <resource-file src="src/android/assets/fontawesome-webfont.ttf" target="assets/fontawesome-webfont.ttf" />
 
     </platform>
 
