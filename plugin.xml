@@ -118,12 +118,9 @@
         <header-file src="src/ios/UIFont+FontAwesome.h" />
         <source-file src="src/ios/UIFont+FontAwesome.m" />
         <resource-file src="src/ios/FontAwesome.ttf" />
-        <config-file target="*-Info.plist" parent="Fonts provided by application">
+        <config-file target="*-Info.plist" parent="UIAppFonts">
             <array>
-                <dict>
-                    <key>FontAwesome</key>
-                    <string>FontAwesome.tff</string>
-                </dict>
+                <string>FontAwesome.ttf</string>
             </array>
         </config-file>
         <framework src="CoreGraphics.framework" />
