@@ -38,21 +38,22 @@
         </js-module>
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="InAppBrowser">
-                <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
+                <param name="android-package" value="com.jamiealtizer.cordova.inappbrowser.InAppBrowser"/>
             </feature>
         </config-file>
 
-        <source-file src="src/android/InAppBrowser.java" target-dir="src/org/apache/cordova/inappbrowser" />
-        <source-file src="src/android/InAppBrowserDialog.java" target-dir="src/org/apache/cordova/inappbrowser" />
-        <source-file src="src/android/InAppChromeClient.java" target-dir="src/org/apache/cordova/inappbrowser" />
-        <source-file src="src/android/FontAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
-        <source-file src="src/android/ExternalResourceHelper.java" target-dir="src/org/apache/cordova/inappbrowser" />
-        <source-file src="src/android/DrawableAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
-        <source-file src="src/android/ButtonAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
-        <source-file src="src/android/TextAwesome.java" target-dir="src/org/apache/cordova/inappbrowser" />
+        <source-file src="src/android/InAppBrowser.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
+        <source-file src="src/android/InAppBrowserDialog.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
+        <source-file src="src/android/InAppChromeClient.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
+        <source-file src="src/android/FontAwesome.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
+        <source-file src="src/android/ExternalResourceHelper.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
+        <source-file src="src/android/DrawableAwesome.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
+        <source-file src="src/android/ButtonAwesome.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
+        <source-file src="src/android/TextAwesome.java" target-dir="src/com/jamiealtizer/cordova/inappbrowser" />
 
         <resource-file src="src/android/res/drawable/buttonbackground.xml" target="res/drawable/buttonbackground.xml" />
         <resource-file src="src/android/res/values/font_awesome.xml" target="res/values/font_awesome.xml" />
+        <resource-file src="src/android/res/values/inapp_colors.xml" target="res/values/inapp_colors.xml" />
         <resource-file src="src/android/assets/fontawesome-webfont.ttf" target="assets/fontawesome-webfont.ttf" />
 
     </platform>
@@ -64,7 +65,7 @@
         </js-module>
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="InAppBrowser">
-                <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser"/>
+                <param name="android-package" value="com.jamiealtizer.cordova.inappbrowser.InAppBrowser"/>
             </feature>
         </config-file>
 
