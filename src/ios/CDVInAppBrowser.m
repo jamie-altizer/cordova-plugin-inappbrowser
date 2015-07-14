@@ -526,7 +526,7 @@
     self.toolbar.multipleTouchEnabled = NO;
     /*self.toolbar.opaque = NO;*/
     self.toolbar.userInteractionEnabled = YES;
-    self.toolbar.barTintColor = [UIColor colorWithRed:0.0/255.0 green:193.0/255.0 blue:74.0/255.0 alpha:1.0];
+    self.toolbar.barTintColor = [UIColor colorWithRed:37.0/255.0 green:84.0/255.0 blue:118.0/255.0 alpha:1.0];
     self.toolbar.tintColor = [UIColor whiteColor];
 
     CGFloat labelInset = 5.0;
