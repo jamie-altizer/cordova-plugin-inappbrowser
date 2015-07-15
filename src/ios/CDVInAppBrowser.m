@@ -33,6 +33,17 @@
 #define    LOCATIONBAR_HEIGHT 21.0
 #define    FOOTER_HEIGHT ((TOOLBAR_HEIGHT) + (LOCATIONBAR_HEIGHT))
 
+#define RGBA(R, G, B, A)   ([UIColor colorWithRed:R/255.0f green:G/255.0f blue:B/255.0f alpha:A])
+#define RGB(R, G, B)       (RGBA(R, G, B, 1.0f))
+#define GA(W, A)           ([UIColor colorWithWhite:W/255.0f alpha:A])
+#define G(W)               (GA(W, 1.0f))
+#define RANDCOLOR_ALPHA(A) ([UIColor colorWithHue:fmodf(((float)arc4random()/0x100000000)+0.618033988749895f, 1.0f) saturation:0.75f brightness:0.95f alpha:A])
+#define RANDCOLOR          (RANDCOLOR_ALPHA(1.0f))
+
+/*PREDEFINED COLORS*/
+#define MIPAGE_DARK_BLUE RGB(37.0, 84.0, 118.0)
+#define COLORS_TOOLBAR_BACKGROUND MIPAGE_DARK_BLUE
+
 #pragma mark CDVInAppBrowser
 
 @interface CDVInAppBrowser () {
@@ -516,17 +527,16 @@
 
     self.toolbar = [[UIToolbar alloc] initWithFrame:toolbarFrame];
     self.toolbar.alpha = 1.000;
-    //self.toolbar.autoresizesSubviews = YES;
     self.toolbar.autoresizingMask = toolbarIsAtBottom ? (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin) : UIViewAutoresizingFlexibleWidth;
-    /*self.toolbar.barStyle = UIBarStyleBlackOpaque;*/
+    self.toolbar.barStyle = UIBarStyleBlackOpaque;
     self.toolbar.clearsContextBeforeDrawing = NO;
     self.toolbar.clipsToBounds = NO;
-    //self.toolbar.contentMode = UIViewContentModeScaleToFill;
     self.toolbar.hidden = NO;
     self.toolbar.multipleTouchEnabled = NO;
     /*self.toolbar.opaque = NO;*/
+    self.toolbar.translucent = NO;
     self.toolbar.userInteractionEnabled = YES;
-    self.toolbar.barTintColor = [UIColor colorWithRed:37.0/255.0 green:84.0/255.0 blue:118.0/255.0 alpha:1.0];
+    self.toolbar.barTintColor = COLORS_TOOLBAR_BACKGROUND;
     self.toolbar.tintColor = [UIColor whiteColor];
 
     CGFloat labelInset = 5.0;
@@ -624,7 +634,7 @@
     } else {
 //        title = [@" " stringByAppendingString:title];
 //        title = [[NSString fontAwesomeIconStringForIconIdentifier:@"fa-chevron-left"] stringByAppendingString:title];
-        button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleBordered target:self action:@selector(close)];
+        button = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleDone target:self action:@selector(close)];
     }
     button.enabled = YES;
 
