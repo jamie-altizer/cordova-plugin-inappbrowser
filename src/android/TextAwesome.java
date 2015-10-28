@@ -3,7 +3,7 @@ package com.jamiealtizer.cordova.inappbrowser;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.support.v4.util.LruCache;
+import android.util.LruCache;
 import android.widget.TextView;
 
 
@@ -39,5 +39,3 @@ public class TextAwesome extends TextView {
 	}
 
 }
-
-

@@ -3,7 +3,7 @@ package com.jamiealtizer.cordova.inappbrowser;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.support.v4.util.LruCache;
+import android.util.LruCache;
 import android.widget.Button;
 
 
@@ -12,21 +12,21 @@ public class ButtonAwesome extends Button{
 	private final static String NAME = "FONTAWESOME";
 	private static LruCache<String, Typeface> sTypefaceCache = new LruCache<String, Typeface>(12);
 
-	
+
 	public ButtonAwesome(Context context) {
 		super(context);
 		init();
-			
+
 	}
 	public ButtonAwesome(Context context,AttributeSet attrs) {
 		super(context,attrs);
-		init();	
+		init();
 	}
 	public ButtonAwesome(Context context, AttributeSet attrs, int defStyle){
 		super(context,attrs,defStyle);
-		init();	
+		init();
 	}
-	
+
 	public void init(){
 		Typeface typeface = sTypefaceCache.get(NAME);
 
@@ -40,5 +40,3 @@ public class ButtonAwesome extends Button{
 		setTypeface(typeface);
 	}
 }
-
-
