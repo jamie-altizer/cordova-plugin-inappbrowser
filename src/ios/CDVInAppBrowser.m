@@ -40,8 +40,9 @@
 #define RANDCOLOR          (RANDCOLOR_ALPHA(1.0f))
 
 /*PREDEFINED COLORS*/
-#define MIPAGE_DARK_BLUE RGB(37.0, 84.0, 118.0)
-#define COLORS_TOOLBAR_BACKGROUND MIPAGE_DARK_BLUE
+#define MIPAGE_TEAL RGB(40.0, 128.0, 124.0)
+//#define MIPAGE_DARK_BLUE RGB(37.0, 84.0, 118.0)
+#define COLORS_TOOLBAR_BACKGROUND MIPAGE_TEAL
 
 #pragma mark CDVInAppBrowser
 
@@ -479,7 +480,7 @@
 #else
         _webViewDelegate = [[CDVWebViewDelegate alloc] initWithDelegate:self];
 #endif
-        
+
         [self createViews];
     }
 
@@ -1089,4 +1090,3 @@
 
 
 @end
-
